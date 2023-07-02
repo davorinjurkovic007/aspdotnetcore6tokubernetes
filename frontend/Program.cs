@@ -1,5 +1,3 @@
-using GloboTicket.Frontend.Services;
-using GloboTicket.Frontend.Services.Ordering;
 using GloboTicket.Frontend;
 
 var builder = WebApplication.CreateBuilder(args);
