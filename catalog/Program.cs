@@ -26,15 +26,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+    using (var serviceScope = app?.Services?.GetService<IServiceScopeFactory>()?.CreateScope())
     {
-        var context = serviceScope.ServiceProvider.GetRequiredService<EventCatalogDbContext>();
-        context.Database.EnsureCreated();
+        var context = serviceScope?.ServiceProvider.GetRequiredService<EventCatalogDbContext>();
+        context?.Database.EnsureCreated();
     }
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+app?.UseAuthorization();
+app?.MapControllers();
+app?.Run();
