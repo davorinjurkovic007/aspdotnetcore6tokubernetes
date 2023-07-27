@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ordering
+  name: ordering
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ordering
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ordering
+    spec:
+      containers:
+        - image: ordering
+          name: ordering
+          resources: {}
+      restartPolicy: Always
+status: {}

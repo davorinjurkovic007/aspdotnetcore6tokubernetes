@@ -32,12 +32,12 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: catalog:dev
+        image: catalog
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
         - name: CONNECTIONSTRINGS__DEFAULTCONNECTION
-          value: Server=sqlserver;Database=EventCatalogDb;User=sa;pwd=P@ssW0rd!;MultipleActiveResultSets=true
+          value: Server=sqlserver;Database=EventCatalogDb;User=sa;pwd=P@ssW0rd!;MultipleActiveResultSets=true;Integrated security=False;TrustServerCertificate=True
         ports:
         - containerPort: 80
         imagePullPolicy: Never

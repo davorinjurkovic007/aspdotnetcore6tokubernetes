@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: frontend
-  namespace: globoticket
+  #namespace: globoticket
   labels:
     app: frontend
 spec:
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: frontend:dev
+        image: frontend
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development

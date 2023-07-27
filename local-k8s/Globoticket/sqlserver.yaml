@@ -40,4 +40,4 @@ spec:
           value: P@ssW0rd!
         ports:
         - containerPort: 1433
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
