@@ -13,10 +13,8 @@ services:
       context: .
       dockerfile: catalog/Dockerfile
 
-
   ordering:
     image: ${DOCKER_REGISTRY-}ordering
     build:
       context: .
       dockerfile: ordering/Dockerfile
-
