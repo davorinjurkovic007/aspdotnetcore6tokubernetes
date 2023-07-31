@@ -46,7 +46,7 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
         - name: CONNECTIONSTRINGS__DEFAULTCONNECTION
-          value: Server=sqlserver;Database=EventCatalogDb;User=sa;pwd=P@ssW0rd!;TrustServerCertificate=true;Persist Security Info=true;MultipleActiveResultSets=true
+          value: Server=sqlserver;Database=EventCatalogDb;User=sa;pwd=P@ssW0rd!;MultipleActiveResultSets=true;Integrated security=False;TrustServerCertificate=True
         ports:
         - containerPort: 80
         imagePullPolicy: Always
