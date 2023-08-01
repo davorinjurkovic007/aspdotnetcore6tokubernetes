@@ -2,6 +2,7 @@ using GloboTicket.Catalog;
 using GloboTicket.Catalog.Repositories;
 using GloboTicket.Services.EventCatalog.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationInsightsTelemetry();
 // add DB context here
 builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddUserSecrets("3285d194-4d94-4fda-8e4f-5a6971d28b64");
 builder.Services.AddDbContext<EventCatalogDbContext>(options =>
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
