@@ -39,7 +39,7 @@ spec:
          runAsUser: 1000
       containers:
       - name: frontend
-        image: psgloboticket.azurecr.io/frontend
+        image: psgloboticketdavorin.azurecr.io/frontend
         resources:
           requests:
             memory: "500Mi"
