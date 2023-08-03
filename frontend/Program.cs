@@ -1,4 +1,7 @@
 using GloboTicket.Frontend;
+using GloboTicket.Frontend.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,10 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddInfrastructureService();
+
+builder.Services.AddHealthChecks()
+    .AddCheck<SlowDependencyHealthCheck>("SlowDependencyDemo", tags: new string[] { "ready" })
+    .AddProcessAllocatedMemoryHealthCheck(maximumMegabytesAllocated: 500);
 
 builder.Services.AddApplicationInsightsTelemetry();
 
@@ -28,5 +35,21 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=ConcertCatalog}/{action=Index}/{id?}");
+
+//map the livelyness and readyness probes
+app.MapHealthChecks("/health/ready",
+new HealthCheckOptions()
+{
+    Predicate = reg => reg.Tags.Contains("ready"),
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.MapHealthChecks("/health/lively",
+new HealthCheckOptions()
+{
+    Predicate = reg => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
 
 app.Run();

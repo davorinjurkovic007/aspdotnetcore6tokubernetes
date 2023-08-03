@@ -11,8 +11,8 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetPort: 8080
-  type: LoadBalancer
+    targetPort: 80
+  type: ClusterIP
 
 ---
 apiVersion: apps/v1
@@ -23,7 +23,12 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: frontend
@@ -32,10 +37,6 @@ spec:
       labels:
         app: frontend
     spec:
-      securityContext:
-         fsGroup: 2000
-         runAsNonRoot: true
-         runAsUser: 1000
       containers:
       - name: frontend
         image: psgloboticketdavorin.azurecr.io/frontend
@@ -54,9 +55,23 @@ spec:
         - name: ApiConfigs__Ordering__Uri
           value: http://ordering:8080
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         imagePullPolicy: Always
-        securityContext:
-           allowPrivilegeEscalation: false
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 20
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /health/lively
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 3
       imagePullSecrets:
         - name: acr-secret
