@@ -68,6 +68,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "policies", "policies", "{FF
 		remote-k8s\improve-security\policies\RunAsNonRoot.yaml = remote-k8s\improve-security\policies\RunAsNonRoot.yaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "observability", "observability", "{D7413D38-EA03-44DB-BCEF-21E34634B094}"
+	ProjectSection(SolutionItems) = preProject
+		remote-k8s\observability\catalog.yaml = remote-k8s\observability\catalog.yaml
+		remote-k8s\observability\frontend.yaml = remote-k8s\observability\frontend.yaml
+		remote-k8s\observability\Globoticket.side = remote-k8s\observability\Globoticket.side
+		remote-k8s\observability\ordering.yaml = remote-k8s\observability\ordering.yaml
+		remote-k8s\observability\prometheus-config.yaml = remote-k8s\observability\prometheus-config.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +110,7 @@ Global
 		{E1EDB748-F5C1-40A0-9CBC-48FD63261362} = {96820878-3BAF-4A12-8F5C-CB9E4F4B2505}
 		{02CDA9ED-AFF9-446D-8E67-8398967DF425} = {96820878-3BAF-4A12-8F5C-CB9E4F4B2505}
 		{FFDE7A52-093F-4FE1-B8AB-1E0978FE4463} = {02CDA9ED-AFF9-446D-8E67-8398967DF425}
+		{D7413D38-EA03-44DB-BCEF-21E34634B094} = {96820878-3BAF-4A12-8F5C-CB9E4F4B2505}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9F232D3-5386-4E57-B49F-7AF54A4A8843}

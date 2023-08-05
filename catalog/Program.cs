@@ -3,6 +3,8 @@ using GloboTicket.Catalog.Repositories;
 using GloboTicket.Services.EventCatalog.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
+using Prometheus;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Services.AddDbContext<EventCatalogDbContext>(options =>
 
 builder.Services.AddScoped<IConcertRepository, ConcertRepository>();
 
+builder.Services.AddHttpClient(Options.DefaultName)
+    .UseHttpClientMetrics();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +42,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app?.UseRouting();
 app?.UseAuthorization();
 app?.MapControllers();
+
+app?.UseHttpMetrics();
+app?.UseMetricServer();
+
+app?.UseEndpoints(endpoints =>
+endpoints.MapMetrics());
+
 app?.Run();

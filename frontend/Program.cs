@@ -2,6 +2,8 @@ using GloboTicket.Frontend;
 using GloboTicket.Frontend.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Options;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddHealthChecks()
     .AddProcessAllocatedMemoryHealthCheck(maximumMegabytesAllocated: 500);
 
 builder.Services.AddApplicationInsightsTelemetry();
+
+builder.Services.AddHttpClient(Options.DefaultName)
+    .UseHttpClientMetrics();
 
 var app = builder.Build();
 
@@ -51,5 +56,9 @@ new HealthCheckOptions()
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
+app.UseHttpMetrics();
+app.UseMetricServer();
+
+app.UseEndpoints(endopoint => endopoint.MapMetrics());
 
 app.Run();
